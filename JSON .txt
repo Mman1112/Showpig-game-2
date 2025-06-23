@@ -1,0 +1,12 @@
+{
+  "name": "ShowPig Star",
+  "short_name": "ShowPig",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f8f0e3",
+  "theme_color": "#ffa07a",
+  "icons": [
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Pig_cartoon_04.svg",
+      "sizes": "192x192",
+      "type": "image/png"
