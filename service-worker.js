@@ -1,16 +1,13 @@
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open('showpig-cache').then(cache => {
-      return cache.addAll([
-        'index.html',
-        'manifest.json',
-        'service-worker.js'
-      ]);
-    })
-  );
-});
+document.addEventListener("DOMContentLoaded", function () {
+  const startButton = document.getElementById("startButton");
+  const gameText = document.getElementById("gameText");
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
+  function startGame() {
+    gameText.textContent = "The game has started! Raise your showpig!";
+    // More features can go here
+  }
+
+  if (startButton) {
+    startButton.addEventListener("click", startGame);
+  }
+});
