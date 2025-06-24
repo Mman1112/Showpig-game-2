@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ShowPig Star</title>
+  <style>
+    body {
+      font-family: "Comic Sans MS", sans-serif;
+      background-color: #f8f0e3;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #c1440e;
+    }
+
+    #pig {
+      width: 200px;
+      margin: 20px auto;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      background-color: #ffa07a;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff6347;
+    }
+
+    #log {
+      background: #fff7ec;
+      padding: 15px;
+      border: 2px solid #e5c29f;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+
+    .stat {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🐷 ShowPig Star</h1>
+  <img id="pig" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Pig_cartoon_04.svg" alt="Pig">
+
+  <div id="stats">
+    <p>Name: <span class="stat" id="name"></span></p>
+    <p>Breed: <span class="stat" id="breed"></span></p>
+    <p>Muscle: <span class="stat" id="muscle"></span></p>
+    <p>Structure: <span class="stat" id="structure"></span></p>
+    <p>Disposition: <span class="stat" id="disposition"></span></p>
+    <p>Training: <span class="stat" id="training"></span></p>
+    <p>Mood: <span class="stat" id="mood"></span></p>
+    <p>Ribbons: <span class="stat" id="ribbons">0</span></p>
+  </div>
+
+  <div>
+    <button onclick="feedPig()">🍽 Feed</button>
+    <button onclick="trainPig()">🏃 Train</button>
+    <button onclick="cleanPig()">🧼 Clean Pen</button>
+    <button onclick="showPig()">🎪 Enter Show</button>
+  </div>
+
+  <div id="log">Welcome to ShowPig Star!</div>
+
+  <script>
+    const breeds = ["Yorkshire", "Duroc", "Hampshire", "Berkshire"];
+    const pig = {
+      name: "Snuffles",
+      breed: breeds[Math.floor(Math.random() * breeds.length)],
+      muscle: Math.floor(Math.random() * 5) + 5,
+      structure: Math.floor(Math.random() * 5) + 5,
+      disposition: Math.floor(Math.random() * 5) + 5,
+      training: 0,
+      mood: 5,
+      ribbons: 0
+    };
+
+    function updateStats() {
+      document.getElementById("name").textContent = pig.name;
+      document.getElementById("breed").textContent = pig.breed;
+      document.getElementById("muscle").textContent = pig.muscle;
+      document.getElementById("structure").textContent = pig.structure;
+      document.getElementById("disposition").textContent = pig.disposition;
+      document.getElementById("training").textContent = pig.training;
+      document.getElementById("mood").textContent = pig.mood;
+      document.getElementById("ribbons").textContent = pig.ribbons;
+    }
+
+    function feedPig() {
+      pig.mood = Math.min(pig.mood + 1, 10);
+      log("You fed " + pig.name + ". Mood improved!");
+      updateStats();
+    }
+
+    function trainPig() {
+      if (pig.mood < 2) {
+        log(pig.name + " is too grumpy to train. Try feeding or cleaning first.");
+        return;
+      }
+      pig.training++;
+      pig.mood--;
+      log("You trained " + pig.name + ". Training improved!");
+      updateStats();
+    }
+
+    function cleanPig() {
+      pig.mood = Math.min(pig.mood + 2, 10);
+      log("You cleaned the pen. " + pig.name + " is happy and clean!");
+      updateStats();
+    }
+
+    function showPig() {
+      const score = pig.muscle + pig.structure + pig.disposition + pig.training + pig.mood;
+      if (score > 40) {
+        pig.ribbons++;
+        log(pig.name + " won 1st place! 🏆 Total Ribbons: " + pig.ribbons);
+      } else if (score > 30) {
+        pig.ribbons++;
+        log(pig.name + " won 2nd place! 🥈 Total Ribbons: " + pig.ribbons);
+      } else {
+        log(pig.name + " didn't place. Keep training!");
+      }
+      pig.training = Math.max(0, pig.training - 1);
+      pig.mood = Math.max(0, pig.mood - 2);
+      updateStats();
+    }
+
+    function log(message) {
+      document.getElementById("log").textContent = message;
+    }
+
+    updateStats();
+  </script>
+
+</body>
+</html>
